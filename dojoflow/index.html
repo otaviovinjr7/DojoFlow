@@ -1,0 +1,630 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="description"
+    content="DojoFlow: organize exercícios, monte rotinas e controle o tempo do aquecimento de Jiu-Jítsu."
+  >
+  <meta name="theme-color" content="#101210">
+  <title>DojoFlow | Gerenciador de Aquecimento</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="js/storage.js" defer></script>
+  <script src="js/cronometro.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+
+<body>
+  <div class="app-layout">
+
+    <!-- MENU LATERAL -->
+    <aside class="sidebar">
+      <a class="brand" href="#inicio" aria-label="DojoFlow - Início">
+        <span class="brand-icon">D</span>
+        <span class="brand-text">Dojo<span>Flow</span></span>
+      </a>
+
+      <div class="sidebar-label">MENU PRINCIPAL</div>
+
+      <nav class="sidebar-nav" aria-label="Navegação principal">
+        <a class="nav-link active" href="#inicio">
+          <span class="nav-icon">⌂</span>
+          <span>Visão geral</span>
+        </a>
+
+        <a class="nav-link" href="#exercicios">
+          <span class="nav-icon">▤</span>
+          <span>Exercícios</span>
+        </a>
+
+        <a class="nav-link" href="#rotinas">
+          <span class="nav-icon">☷</span>
+          <span>Minhas rotinas</span>
+        </a>
+
+        <a class="nav-link" href="#cronometro">
+          <span class="nav-icon">◷</span>
+          <span>Cronômetro</span>
+        </a>
+
+        <a class="nav-link" href="#historico">
+          <span class="nav-icon">↺</span>
+          <span>Histórico</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-tip">
+          <span class="tip-icon">✦</span>
+          <strong>Disciplina gera evolução.</strong>
+          <p>Organize seu aquecimento e aproveite cada treino.</p>
+        </div>
+
+        <div class="sidebar-footer">
+          <span class="status-dot"></span>
+          Seus dados ficam neste navegador
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+
+      <!-- CABEÇALHO -->
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">SUA ROTINA, SOB CONTROLE</p>
+          <h1>Gerenciador de aquecimento</h1>
+          <p class="topbar-description">
+            Planeje, organize e acompanhe seus aquecimentos de Jiu-Jítsu.
+          </p>
+        </div>
+
+        <a class="topbar-action" href="#rotinas">
+          <span>＋</span> Nova rotina
+        </a>
+      </header>
+
+      <!-- 1. VISÃO GERAL -->
+      <section id="inicio" class="page-section dashboard-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">SEU DOJO DIGITAL</p>
+            <h2>Visão geral</h2>
+            <p>Acompanhe seus exercícios, rotinas e sessões concluídas.</p>
+          </div>
+          <span class="section-tag">JIU-JÍTSU</span>
+        </div>
+
+        <div class="welcome-banner">
+          <div class="welcome-content">
+            <span class="welcome-label">PREPARE-SE PARA O TREINO</span>
+            <h2>Todo grande treino começa no aquecimento.</h2>
+            <p>
+              Crie sua sequência de exercícios e mantenha a consistência
+              dentro e fora do tatame.
+            </p>
+            <a class="btn-primary welcome-button" href="#cronometro">
+              Acessar cronômetro <span>→</span>
+            </a>
+          </div>
+
+          <div class="welcome-symbol" aria-hidden="true">柔</div>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-icon">▤</span>
+              <span class="stat-caption">BIBLIOTECA</span>
+            </div>
+            <p class="stat-number" id="total-exercicios">0</p>
+            <h3>Exercícios cadastrados</h3>
+            <p class="stat-description">Movimentos disponíveis para suas rotinas.</p>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-icon">☷</span>
+              <span class="stat-caption">PLANEJAMENTO</span>
+            </div>
+            <p class="stat-number" id="total-rotinas">0</p>
+            <h3>Rotinas criadas</h3>
+            <p class="stat-description">Sequências preparadas para o tatame.</p>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-icon">◷</span>
+              <span class="stat-caption">PROGRESSO</span>
+            </div>
+            <p class="stat-number" id="total-sessoes">0</p>
+            <h3>Sessões concluídas</h3>
+            <p class="stat-description">Treinos registrados no seu histórico.</p>
+          </article>
+        </div>
+
+        <div class="section-heading subsection-heading">
+          <div>
+            <h2>Acesso rápido</h2>
+            <p>Continue de onde quiser.</p>
+          </div>
+        </div>
+
+        <div class="quick-actions">
+          <button type="button" class="quick-card" id="atalho-exercicios">
+            <span class="quick-icon">＋</span>
+            <span class="quick-text">
+              <strong>Gerenciar exercícios</strong>
+              <small>Cadastre e organize movimentos.</small>
+            </span>
+            <span class="quick-arrow">→</span>
+          </button>
+
+          <button type="button" class="quick-card" id="atalho-rotinas">
+            <span class="quick-icon">☷</span>
+            <span class="quick-text">
+              <strong>Montar uma rotina</strong>
+              <small>Escolha a sequência do aquecimento.</small>
+            </span>
+            <span class="quick-arrow">→</span>
+          </button>
+
+          <button type="button" class="quick-card" id="atalho-cronometro">
+            <span class="quick-icon">◷</span>
+            <span class="quick-text">
+              <strong>Iniciar aquecimento</strong>
+              <small>Controle o tempo de cada exercício.</small>
+            </span>
+            <span class="quick-arrow">→</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 2. BIBLIOTECA DE EXERCÍCIOS -->
+      <section id="exercicios" class="page-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">SUA BASE DE MOVIMENTOS</p>
+            <h2>Biblioteca de exercícios</h2>
+            <p>Cadastre os movimentos que você usa no aquecimento.</p>
+          </div>
+        </div>
+
+        <div class="content-grid exercise-layout">
+
+          <!-- FORMULÁRIO DE EXERCÍCIO -->
+          <article class="panel form-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Novo exercício</h3>
+                <p>Preencha as informações abaixo.</p>
+              </div>
+              <span class="panel-heading-icon">＋</span>
+            </div>
+
+            <form id="form-exercicio">
+              <div class="form-field">
+                <label for="nome-exercicio">Nome do exercício *</label>
+                <input
+                  type="text"
+                  id="nome-exercicio"
+                  name="nome"
+                  placeholder="Ex.: Rolamento para frente"
+                  maxlength="80"
+                  required
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="categoria-exercicio">Categoria *</label>
+                <select id="categoria-exercicio" name="categoria" required>
+                  <option value="">Selecione uma categoria</option>
+                  <option value="Mobilidade">Mobilidade</option>
+                  <option value="Aquecimento">Aquecimento</option>
+                  <option value="Técnica">Técnica</option>
+                  <option value="Condicionamento">Condicionamento</option>
+                  <option value="Jiu-Jítsu">Jiu-Jítsu</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="duracao-exercicio">Duração em segundos *</label>
+                <input
+                  type="number"
+                  id="duracao-exercicio"
+                  name="duracao"
+                  placeholder="Ex.: 60"
+                  min="1"
+                  max="3600"
+                  step="1"
+                  required
+                >
+                <small class="field-help">
+                  Exemplo: 60 segundos equivalem a 1 minuto.
+                </small>
+              </div>
+
+              <div class="form-field">
+                <label for="descricao-exercicio">Descrição</label>
+                <textarea
+                  id="descricao-exercicio"
+                  name="descricao"
+                  rows="3"
+                  maxlength="500"
+                  placeholder="Descreva como executar o movimento..."
+                ></textarea>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn-primary" id="btn-salvar">
+                  Salvar exercício
+                </button>
+
+                <button
+                  type="button"
+                  class="btn-secondary"
+                  id="btn-cancelar"
+                  hidden
+                >
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </article>
+
+          <!-- LISTA DE EXERCÍCIOS -->
+          <div class="exercise-library">
+            <div class="panel library-panel">
+              <div class="panel-heading library-heading">
+                <div>
+                  <h3>Exercícios cadastrados</h3>
+                  <p>Pesquise, filtre, edite ou exclua.</p>
+                </div>
+                <span class="item-counter" id="contador-exercicios">
+                  0 exercícios
+                </span>
+              </div>
+
+              <div class="filter-row">
+                <div class="search-field">
+                  <span aria-hidden="true">⌕</span>
+                  <input
+                    type="search"
+                    id="pesquisa-exercicio"
+                    placeholder="Pesquisar exercício..."
+                    aria-label="Pesquisar exercício"
+                  >
+                </div>
+
+                <select id="filtro-categoria" aria-label="Filtrar por categoria">
+                  <option value="">Todas as categorias</option>
+                  <option value="Mobilidade">Mobilidade</option>
+                  <option value="Aquecimento">Aquecimento</option>
+                  <option value="Técnica">Técnica</option>
+                  <option value="Condicionamento">Condicionamento</option>
+                  <option value="Jiu-Jítsu">Jiu-Jítsu</option>
+                </select>
+              </div>
+
+              <div id="lista-exercicios" class="exercise-list">
+                <div class="empty-state">
+                  Você ainda não cadastrou exercícios.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 3. MONTADOR DE ROTINAS -->
+      <section id="rotinas" class="page-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">PLANEJE SEU AQUECIMENTO</p>
+            <h2>Montador de rotinas</h2>
+            <p>Combine exercícios, ajuste a ordem e salve sua sequência.</p>
+          </div>
+        </div>
+
+        <div class="content-grid routine-layout">
+
+          <article class="panel form-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Construir rotina</h3>
+                <p>Dê um nome à sequência e adicione exercícios.</p>
+              </div>
+              <span class="panel-heading-icon">☷</span>
+            </div>
+
+            <form id="form-rotina">
+              <div class="form-field">
+                <label for="nome-rotina">Nome da rotina *</label>
+                <input
+                  type="text"
+                  id="nome-rotina"
+                  name="nome"
+                  maxlength="80"
+                  placeholder="Ex.: Aquecimento completo"
+                  required
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="selecionar-exercicio">Adicionar exercício</label>
+                <select id="selecionar-exercicio">
+                  <option value="">Selecione um exercício cadastrado</option>
+                </select>
+              </div>
+
+              <button
+                type="button"
+                class="btn-secondary btn-full"
+                id="btn-adicionar-exercicio"
+              >
+                <span>＋</span> Adicionar à rotina
+              </button>
+
+              <div class="routine-builder">
+                <div class="builder-heading">
+                  <h4>Sequência de exercícios</h4>
+                  <span class="builder-note">Use ↑ e ↓ para ordenar</span>
+                </div>
+
+                <div id="lista-itens-rotina" class="routine-list">
+                  <div class="empty-state">
+                    Adicione exercícios para montar sua rotina.
+                  </div>
+                </div>
+              </div>
+
+              <div class="routine-total">
+                <div>
+                  <span class="routine-total-label">TEMPO TOTAL ESTIMADO</span>
+                  <strong id="total-tempo-rotina">0 s</strong>
+                </div>
+                <span class="routine-total-icon">◷</span>
+              </div>
+
+              <div class="form-actions">
+                <button
+                  type="submit"
+                  class="btn-primary"
+                  id="btn-salvar-rotina"
+                >
+                  Salvar rotina
+                </button>
+
+                <button
+                  type="button"
+                  class="btn-secondary"
+                  id="btn-cancelar-rotina"
+                  hidden
+                >
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </article>
+
+          <article class="panel saved-routines-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Minhas rotinas</h3>
+                <p>Suas sequências salvas ficam disponíveis aqui.</p>
+              </div>
+              <span class="panel-heading-icon">✓</span>
+            </div>
+
+            <div id="lista-rotinas" class="routine-grid">
+              <div class="empty-state">
+                Você ainda não salvou nenhuma rotina.
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- 4. CRONÔMETRO -->
+      <section id="cronometro" class="page-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">HORA DE IR PARA O TATAME</p>
+            <h2>Cronômetro de aquecimento</h2>
+            <p>Execute sua rotina acompanhando o tempo de cada movimento.</p>
+          </div>
+          <span class="section-tag">FOCO TOTAL</span>
+        </div>
+
+        <div class="timer-layout">
+
+          <article class="panel timer-panel">
+            <div class="timer-topline">
+              <span class="live-indicator">
+                <span class="status-dot"></span>
+                CONTROLE DE TEMPO
+              </span>
+              <span class="timer-progress-text" id="timer-progresso">
+                0 / 0
+              </span>
+            </div>
+
+            <div class="timer-routine-select">
+              <label for="rotina-cronometro">Rotina de aquecimento</label>
+              <select id="rotina-cronometro">
+                <option value="">Selecione uma rotina salva</option>
+              </select>
+            </div>
+
+            <div class="timer-display-area">
+              <span class="timer-kicker">EXERCÍCIO ATUAL</span>
+              <h3 id="timer-exercicio-atual">Pronto para começar?</h3>
+              <span class="timer-category" id="timer-categoria-atual">
+                Selecione uma rotina
+              </span>
+
+              <div
+                class="timer-circle"
+                role="group"
+                aria-label="Tempo restante do exercício"
+              >
+                <div class="timer-circle-inner">
+                  <span class="timer-display" id="timer-display">00:00</span>
+                  <span class="timer-remaining-label">TEMPO RESTANTE</span>
+                </div>
+              </div>
+
+              <p class="timer-next">
+                <span>PRÓXIMO</span>
+                <strong id="timer-proximo">Aguardando início</strong>
+              </p>
+            </div>
+
+            <div class="timer-controls">
+              <button
+                type="button"
+                class="btn-primary timer-main-button"
+                id="btn-timer-iniciar"
+              >
+                ▶ Iniciar
+              </button>
+
+              <button
+                type="button"
+                class="btn-secondary"
+                id="btn-timer-pausar"
+                disabled
+              >
+                Ⅱ Pausar
+              </button>
+
+              <button
+                type="button"
+                class="btn-secondary"
+                id="btn-timer-proximo"
+                disabled
+              >
+                Próximo →
+              </button>
+
+              <button
+                type="button"
+                class="btn-danger"
+                id="btn-timer-finalizar"
+                disabled
+              >
+                Finalizar
+              </button>
+            </div>
+
+            <p
+              id="timer-mensagem"
+              class="timer-message"
+              role="status"
+              aria-live="polite"
+            >
+              Selecione uma rotina salva para começar.
+            </p>
+          </article>
+
+          <aside class="timer-side-column">
+            <article class="panel timer-guide">
+              <span class="guide-icon">✦</span>
+              <h3>Antes de começar</h3>
+              <ul>
+                <li>Escolha uma rotina salva.</li>
+                <li>Prepare um espaço seguro para se movimentar.</li>
+                <li>Respeite seu condicionamento e seus limites.</li>
+                <li>Use o botão Próximo se precisar avançar.</li>
+              </ul>
+            </article>
+
+            <article class="timer-tip-card">
+              <span class="tip-label">LEMBRETE</span>
+              <h3>Aquecimento não é competição.</h3>
+              <p>
+                Priorize a execução correta, a mobilidade e a preparação
+                gradual do corpo para o treino.
+              </p>
+            </article>
+          </aside>
+
+        </div>
+      </section>
+
+      <!-- 5. HISTÓRICO -->
+      <section id="historico" class="page-section">
+        <div class="section-heading history-heading">
+          <div>
+            <p class="eyebrow">ACOMPANHE SUA CONSISTÊNCIA</p>
+            <h2>Histórico de treinos</h2>
+            <p>Consulte as sessões concluídas neste navegador.</p>
+          </div>
+
+          <button
+            type="button"
+            class="btn-danger"
+            id="btn-limpar-historico"
+          >
+            Limpar histórico
+          </button>
+        </div>
+
+        <div class="history-stats">
+          <article class="history-stat-card">
+            <span class="history-stat-icon">✓</span>
+            <div>
+              <span class="history-stat-label">SESSÕES CONCLUÍDAS</span>
+              <strong id="historico-total-sessoes">0</strong>
+            </div>
+          </article>
+
+          <article class="history-stat-card">
+            <span class="history-stat-icon">◷</span>
+            <div>
+              <span class="history-stat-label">TEMPO PLANEJADO TOTAL</span>
+              <strong id="historico-tempo-total">0 s</strong>
+            </div>
+          </article>
+        </div>
+
+        <article class="panel history-panel">
+          <div class="panel-heading">
+            <div>
+              <h3>Sessões registradas</h3>
+              <p>As sessões mais recentes aparecem primeiro.</p>
+            </div>
+          </div>
+
+          <div id="lista-historico" class="history-list">
+            <div class="history-empty">
+              Nenhuma sessão concluída ainda. Conclua uma rotina para
+              registrar seu treino.
+            </div>
+          </div>
+        </article>
+
+        <p class="history-disclaimer">
+          O tempo total considera a duração planejada das rotinas concluídas,
+          conforme os exercícios salvos no momento da execução.
+        </p>
+      </section>
+
+      <!-- RODAPÉ -->
+      <footer class="app-footer">
+        <a class="footer-brand" href="#inicio">Dojo<span>Flow</span></a>
+        <p>Feito para quem evolui a cada treino.</p>
+        <span>HTML · CSS · JavaScript · LocalStorage</span>
+      </footer>
+
+    </main>
+  </div>
+</body>
+</html>
